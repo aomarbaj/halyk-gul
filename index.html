@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Халык Гүл — Цветочный магазин в Алматы</title>
+  <meta name="description" content="Цветочный магазин «Халык Гүл» в Алматы. Доставка за 2 часа. Скидка 15% при оплате картой Halyk Bank." />
+  <meta property="og:title" content="Халык Гүл — Цветы с доставкой за 2 часа в Алматы" />
+  <meta property="og:description" content="Свежие букеты с ежедневных поставок. Кэшбэк 3% при оплате картой Halyk." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #007A3D;
+      --green-dark: #005C2E;
+      --green-light: #E8F5EE;
+      --gold: #F0A500;
+      --gold-dark: #D4920A;
+      --white: #FFFFFF;
+      --gray-100: #F9FAFB;
+      --gray-200: #F3F4F6;
+      --gray-600: #6B7280;
+      --gray-900: #111827;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.14);
+    }
+
+    body { font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); line-height: 1.6; }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; border: none; }
+
+    /* ── Utilities ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--white);
+      font-weight: 700; font-size: 15px; padding: 14px 28px;
+      border-radius: var(--radius-sm); transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white);
+      font-weight: 600; font-size: 15px; padding: 13px 27px;
+      border: 2px solid rgba(255,255,255,0.6); border-radius: var(--radius-sm);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--green-dark); color: rgba(255,255,255,0.88);
+      font-size: 13px; padding: 8px 0; text-align: center;
+    }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .topbar span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--green); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; gap: 20px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 44px; height: 44px; background: var(--gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .logo-text { color: var(--white); }
+    .logo-text strong { display: block; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+    .logo-text small { font-size: 11px; opacity: 0.8; }
+    nav { display: flex; gap: 4px; }
+    nav a {
+      color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 500;
+      padding: 7px 12px; border-radius: 6px; transition: background 0.15s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+    .cart-btn {
+      position: relative; background: rgba(255,255,255,0.15); color: var(--white);
+      border-radius: var(--radius-sm); padding: 9px 14px; font-size: 20px;
+      transition: background 0.2s;
+    }
+    .cart-btn:hover { background: rgba(255,255,255,0.25); }
+    .cart-count {
+      position: absolute; top: -5px; right: -5px;
+      background: var(--gold); color: var(--white); font-size: 11px; font-weight: 700;
+      width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .menu-toggle { display: none; background: none; color: var(--white); font-size: 26px; padding: 4px; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, #00A050 100%);
+      padding: 80px 0 60px;
+    }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15); color: var(--white);
+      font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: var(--white);
+      letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: rgba(255,255,255,0.85); font-size: 17px; margin-bottom: 32px; max-width: 440px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .hero-card {
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+      border-radius: var(--radius-md); padding: 20px 16px; text-align: center; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .hero-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
+    .hero-card .emoji { font-size: 38px; margin-bottom: 8px; }
+    .hero-card .name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .hero-card .price { color: var(--gold); font-weight: 700; font-size: 15px; }
+
+    /* ── Trust bar ── */
+    .trustbar { background: var(--green-light); padding: 20px 0; border-bottom: 1px solid #d4e8da; }
+    .trustbar-items { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 12px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+    .trust-item .icon { font-size: 22px; }
+    .trust-item span { color: var(--gray-600); }
+
+    /* ── Section common ── */
+    section { padding: 64px 0; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .section-header p { color: var(--gray-600); font-size: 16px; max-width: 500px; margin: 0 auto; }
+
+    /* ── Categories ── */
+    .categories { background: var(--white); }
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .cat-card {
+      background: var(--green-light); border-radius: var(--radius-md); padding: 24px 16px;
+      text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+    }
+    .cat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--green); }
+    .cat-card .emoji { font-size: 36px; margin-bottom: 10px; }
+    .cat-card .cat-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .cat-card .cat-price { color: var(--green); font-size: 13px; font-weight: 500; }
+
+    /* ── Products ── */
+    .products { background: var(--gray-100); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .product-card {
+      background: var(--white); border-radius: var(--radius-md); overflow: hidden;
+      box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .product-img {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      font-size: 72px; position: relative;
+    }
+    .badge {
+      position: absolute; top: 12px; left: 12px;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;
+    }
+    .badge-hit { background: var(--gold); color: var(--white); }
+    .badge-new { background: var(--green); color: var(--white); }
+    .badge-sale { background: #E53E3E; color: var(--white); }
+    .product-body { padding: 16px; }
+    .product-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .product-body .desc { color: var(--gray-600); font-size: 13px; margin-bottom: 12px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price-wrap { display: flex; flex-direction: column; }
+    .price { font-size: 18px; font-weight: 700; color: var(--green); }
+    .price-old { font-size: 13px; color: var(--gray-600); text-decoration: line-through; }
+    .add-btn {
+      background: var(--green); color: var(--white); border-radius: var(--radius-sm);
+      padding: 9px 16px; font-weight: 600; font-size: 14px; transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .add-btn:hover { background: var(--green-dark); transform: scale(1.04); }
+
+    /* ── Promo banner ── */
+    .promo { padding: 0; }
+    .promo-inner {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      border-radius: var(--radius-lg); padding: 48px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      flex-wrap: wrap;
+    }
+    .promo-content h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .promo-content p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 480px; }
+    .promo-badges { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+    .promo-badge {
+      background: var(--gold); color: var(--white); font-weight: 700; font-size: 14px;
+      padding: 8px 16px; border-radius: 20px;
+    }
+    .promo-badge.outline { background: rgba(255,255,255,0.15); }
+    .promo-icon { font-size: 80px; flex-shrink: 0; }
+
+    /* ── How to order ── */
+    .how { background: var(--white); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
+    .step { text-align: center; padding: 32px 20px; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green); color: var(--white); font-size: 22px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--gray-600); font-size: 14px; }
+
+    /* ── Reviews ── */
+    .reviews { background: var(--green-light); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .review-card { background: var(--white); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow); }
+    .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .review-avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--green-light);
+      display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+    }
+    .review-meta strong { display: block; font-size: 14px; font-weight: 700; }
+    .review-meta span { font-size: 12px; color: var(--gray-600); }
+    .stars { color: #F59E0B; font-size: 15px; margin-bottom: 8px; }
+    .review-card p { color: #374151; font-size: 14px; line-height: 1.65; }
+
+    /* ── Footer ── */
+    footer { background: var(--green-dark); color: rgba(255,255,255,0.85); padding: 52px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo-text strong,
+    .footer-brand .logo-text small { color: rgba(255,255,255,0.9); }
+    .footer-brand p { font-size: 14px; margin-top: 12px; opacity: 0.75; max-width: 260px; line-height: 1.6; }
+    .footer-col h4 { color: var(--white); font-size: 14px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col li a { font-size: 14px; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-col li a:hover { opacity: 1; }
+    .footer-contacts { display: flex; flex-direction: column; gap: 8px; }
+    .footer-contacts a { font-size: 14px; opacity: 0.85; display: flex; align-items: center; gap: 6px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 13px; opacity: 0.6; }
+    .social-links { display: flex; gap: 10px; margin-top: 16px; }
+    .social-link {
+      width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      transition: background 0.2s;
+    }
+    .social-link:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── Cart notification ── */
+    .cart-toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: var(--green-dark); color: var(--white); padding: 14px 20px;
+      border-radius: var(--radius-sm); font-size: 14px; font-weight: 500;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transform: translateY(80px); opacity: 0; transition: transform 0.3s, opacity 0.3s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cart-toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-cards { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { display: none; }
+      nav.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--green-dark); padding: 12px; gap: 2px; }
+      nav.open a { padding: 10px 14px; }
+      .menu-toggle { display: block; }
+      header { position: relative; }
+      .header-inner { flex-wrap: wrap; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .promo-inner { flex-direction: column; }
+      .promo-icon { display: none; }
+      .topbar-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <span>🚚 Бесплатная доставка от 10 000 ₸</span>
+      <span>⏰ Работаем ежедневно с 08:00 до 22:00</span>
+      <span>📞 +7 727 000-00-00</span>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header id="main-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="Халык Гүл — главная">
+        <div class="logo-icon">🌸</div>
+        <div class="logo-text">
+          <strong>Халык Гүл</strong>
+          <small>Цветочный магазин · Алматы</small>
+        </div>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Меню">☰</button>
+      <nav id="main-nav">
+        <a href="#categories">Каталог</a>
+        <a href="#products">Букеты</a>
+        <a href="#how">Доставка</a>
+        <a href="#promo">Акции</a>
+        <a href="#footer">Контакты</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Корзина">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" aria-label="Главный баннер">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">🌺 Ежедневные поставки с плантаций</div>
+        <h1>Цветы,<br>которые <span>говорят</span><br>за вас</h1>
+        <p>Свежие букеты с доставкой за 2 часа по всему Алматы. Кэшбэк 3% и скидка 15% при оплате картой Halyk Bank.</p>
+        <div class="hero-btns">
+          <a href="#products" class="btn-primary">🌹 Выбрать букет</a>
+          <a href="#how" class="btn-outline">🚚 Заказать доставку</a>
+        </div>
+      </div>
+      <div class="hero-cards" aria-hidden="true">
+        <div class="hero-card">
+          <div class="emoji">🌹</div>
+          <div class="name">Алматинский закат</div>
+          <div class="price">24 900 ₸</div>
+        </div>
+        <div class="hero-card">
+          <div class="emoji">🌸</div>
+          <div class="name">Степная весна</div>
+          <div class="price">18 500 ₸</div>
+        </div>
+        <div class="hero-card">
+          <div class="emoji">🌻</div>
+          <div class="name">Солнечный день</div>
+          <div class="price">9 200 ₸</div>
+        </div>
+        <div class="hero-card">
+          <div class="emoji">🌺</div>
+          <div class="name">Цветение сакуры</div>
+          <div class="price">14 900 ₸</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust bar -->
+<div class="trustbar" role="region" aria-label="Наши преимущества">
+  <div class="container">
+    <div class="trustbar-items">
+      <div class="trust-item"><span class="icon">🚚</span><span>Доставка за 2 часа по всему Алматы</span></div>
+      <div class="trust-item"><span class="icon">✅</span><span>Гарантия свежести или замена бесплатно</span></div>
+      <div class="trust-item"><span class="icon">🌸</span><span>Ежедневные поставки с плантаций</span></div>
+      <div class="trust-item"><span class="icon">💳</span><span>Кэшбэк 3% при оплате картой Halyk</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Categories -->
+<section class="categories" id="categories" aria-labelledby="cat-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="cat-heading">Категории</h2>
+      <p>Более 200 наименований свежих цветов и букетов</p>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card" tabindex="0" role="button" aria-label="Розы — от 4 900 ₸">
+        <div class="emoji">🌹</div>
+        <div class="cat-name">Розы</div>
+        <div class="cat-price">от 4 900 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Тюльпаны — от 3 500 ₸">
+        <div class="emoji">🌷</div>
+        <div class="cat-name">Тюльпаны</div>
+        <div class="cat-price">от 3 500 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Подсолнухи — от 2 800 ₸">
+        <div class="emoji">🌻</div>
+        <div class="cat-name">Подсолнухи</div>
+        <div class="cat-price">от 2 800 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Букеты — от 6 500 ₸">
+        <div class="emoji">💐</div>
+        <div class="cat-name">Букеты</div>
+        <div class="cat-price">от 6 500 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Сакура — от 7 200 ₸">
+        <div class="emoji">🌸</div>
+        <div class="cat-name">Сакура</div>
+        <div class="cat-price">от 7 200 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Горшочные растения — от 5 000 ₸">
+        <div class="emoji">🪴</div>
+        <div class="cat-name">Горшочные</div>
+        <div class="cat-price">от 5 000 ₸</div>
+      </div>
+      <div class="cat-card" tabindex="0" role="button" aria-label="Подарочные наборы — от 9 900 ₸">
+        <div class="emoji">🎁</div>
+        <div class="cat-name">Подарочные</div>
+        <div class="cat-price">от 9 900 ₸</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products" id="products" aria-labelledby="prod-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="prod-heading">Хиты продаж</h2>
+      <p>Самые популярные букеты этой недели</p>
+    </div>
+    <div class="products-grid">
+
+      <article class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #FFE0E0, #FFB3B3);">
+          🌹
+          <span class="badge badge-hit">Хит</span>
+        </div>
+        <div class="product-body">
+          <h3>Алматинский закат</h3>
+          <p class="desc">51 роза Эквадор, премиальная упаковка</p>
+          <div class="product-footer">
+            <div class="price-wrap">
+              <span class="price">24 900 ₸</span>
+              <span class="price-old">29 000 ₸</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('Алматинский закат', 24900)">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #FFE8F0, #FFCCE0);">
+          🌸
+          <span class="badge badge-new">Новинка</span>
+        </div>
+        <div class="product-body">
+          <h3>Степная весна</h3>
+          <p class="desc">Пионы, эустома, зелень аспарагуса</p>
+          <div class="product-footer">
+            <div class="price-wrap">
+              <span class="price">18 500 ₸</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('Степная весна', 18500)">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #FFFDE7, #FFF176);">
+          🌻
+        </div>
+        <div class="product-body">
+          <h3>Солнечный день</h3>
+          <p class="desc">15 подсолнухов, крафт-упаковка</p>
+          <div class="product-footer">
+            <div class="price-wrap">
+              <span class="price">9 200 ₸</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('Солнечный день', 9200)">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #FCE4EC, #F8BBD9);">
+          🌺
+          <span class="badge badge-sale">−20%</span>
+        </div>
+        <div class="product-body">
+          <h3>Цветение сакуры</h3>
+          <p class="desc">Лизиантус, ветки сакуры, упаковка — лента</p>
+          <div class="product-footer">
+            <div class="price-wrap">
+              <span class="price">14 900 ₸</span>
+              <span class="price-old">18 500 ₸</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('Цветение сакуры', 14900)">+ В корзину</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- Promo banner -->
+<section class="promo" id="promo" style="padding: 48px 0;" aria-label="Акция Halyk Bank">
+  <div class="container">
+    <div class="promo-inner">
+      <div class="promo-content">
+        <h2>Скидка 15% для клиентов Halyk Bank</h2>
+        <p>Оплатите покупку картой Halyk и получите скидку 15% на весь заказ плюс кэшбэк 3% на карту.</p>
+        <div class="promo-badges">
+          <span class="promo-badge">−15% скидка</span>
+          <span class="promo-badge">3% кэшбэк</span>
+          <span class="promo-badge outline">💳 HalykPay · Kaspi Pay</span>
+        </div>
+        <a href="#how" class="btn-primary">Оформить заказ со скидкой</a>
+      </div>
+      <div class="promo-icon" aria-hidden="true">💳</div>
+    </div>
+  </div>
+</section>
+
+<!-- How to order -->
+<section class="how" id="how" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="how-heading">Как сделать заказ</h2>
+      <p>Всего 4 простых шага — и букет уже едет к вам</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Выберите букет</h3>
+        <p>Просмотрите каталог и выберите понравившийся букет или закажите индивидуальную сборку у флориста.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Оформите заказ</h3>
+        <p>Укажите адрес доставки, удобное время и при желании добавьте открытку с текстом.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Оплатите онлайн</h3>
+        <p>Принимаем Halyk Bank (−15%), Kaspi Pay, банковские карты и наличные курьеру.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Получите букет</h3>
+        <p>Курьер доставит цветы за 2 часа. Вы получите SMS с трек-номером и именем курьера.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews" aria-labelledby="reviews-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="reviews-heading">Отзывы покупателей</h2>
+      <p>Более 1 200 довольных клиентов за последний месяц</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">👩</div>
+          <div class="review-meta">
+            <strong>Айгерим С.</strong>
+            <span>15 июня 2026</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>Заказывала «Алматинский закат» маме на день рождения. Розы просто шикарные — свежие, ароматные, упаковка красивая. Доставили даже раньше, чем обещали. Буду заказывать ещё!</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">👨</div>
+          <div class="review-meta">
+            <strong>Даурен М.</strong>
+            <span>8 июня 2026</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>Отличный магазин! Оплатил картой Halyk — скидка 15% реально работает. Букет «Степная весна» жена оценила, говорит что лучший за последние годы. Сервис на высшем уровне.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">👩</div>
+          <div class="review-meta">
+            <strong>Мадина К.</strong>
+            <span>1 июня 2026</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p>Заказываю регулярно для офиса. Всегда свежо и красиво. Курьеры вежливые, приезжают вовремя. Попробовала «Цветение сакуры» — просто восторг! Рекомендую всем.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">🌸</div>
+          <div class="logo-text">
+            <strong>Халык Гүл</strong>
+            <small>Цветочный магазин</small>
+          </div>
+        </div>
+        <p>Свежие цветы с доставкой за 2 часа по всему Алматы. Ежедневные поставки с плантаций.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">📸</a>
+          <a href="#" class="social-link" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="#categories">Розы</a></li>
+          <li><a href="#categories">Тюльпаны</a></li>
+          <li><a href="#categories">Подсолнухи</a></li>
+          <li><a href="#categories">Букеты</a></li>
+          <li><a href="#categories">Сакура</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Сервис</h4>
+        <ul>
+          <li><a href="#how">Как заказать</a></li>
+          <li><a href="#how">Доставка</a></li>
+          <li><a href="#promo">Акции</a></li>
+          <li><a href="#">Корпоративным</a></li>
+          <li><a href="#">Возврат</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <div class="footer-contacts">
+          <a href="tel:+77270000000">📞 +7 727 000-00-00</a>
+          <a href="mailto:info@halykgul.kz">✉️ info@halykgul.kz</a>
+          <a href="#">📍 Алматы, ул. Абая 1</a>
+          <a href="#">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Халык Гүл. Все права защищены.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Публичная оферта</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart toast notification -->
+<div class="cart-toast" id="cartToast" role="status" aria-live="polite">
+  <span>✅</span>
+  <span id="cartToastText">Добавлено в корзину</span>
+</div>
+
+<script>
+  // Cart state
+  let cartItems = 0;
+
+  function addToCart(name, price) {
+    cartItems++;
+    document.getElementById('cartCount').textContent = cartItems;
+    const toast = document.getElementById('cartToast');
+    document.getElementById('cartToastText').textContent = `«${name}» добавлен в корзину`;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // Mobile nav toggle
+  document.getElementById('menuToggle').addEventListener('click', function () {
+    const nav = document.getElementById('main-nav');
+    nav.classList.toggle('open');
+    this.textContent = nav.classList.contains('open') ? '✕' : '☰';
+  });
+
+  // Close mobile nav on link click
+  document.getElementById('main-nav').querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('main-nav').classList.remove('open');
+      document.getElementById('menuToggle').textContent = '☰';
+    });
+  });
+
+  // Keyboard support for category cards
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+    });
+  });
+</script>
+</body>
+</html>
