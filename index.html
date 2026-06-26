@@ -266,23 +266,140 @@
     }
     .cart-toast.show { transform: translateY(0); opacity: 1; }
 
-    /* ── Responsive ── */
+    /* ── Responsive: tablet ── */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; }
       .hero-cards { display: none; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ── Responsive: mobile ── */
     @media (max-width: 640px) {
+      /* Topbar */
+      .topbar { display: none; }
+
+      /* Header */
+      header { position: sticky; top: 0; }
+      .header-inner { padding: 10px 0; }
       nav { display: none; }
-      nav.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--green-dark); padding: 12px; gap: 2px; }
-      nav.open a { padding: 10px 14px; }
+      nav.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--green-dark); padding: 8px; gap: 2px; z-index: 200;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      }
+      nav.open a { padding: 12px 16px; font-size: 15px; border-radius: 6px; }
       .menu-toggle { display: block; }
-      header { position: relative; }
-      .header-inner { flex-wrap: wrap; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .promo-inner { flex-direction: column; }
+      .logo-text strong { font-size: 16px; }
+      .logo-text small { display: none; }
+
+      /* Hero */
+      .hero { padding: 40px 0 36px; }
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 15px; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns a { width: 100%; justify-content: center; }
+
+      /* Trust bar */
+      .trustbar { padding: 14px 0; overflow-x: auto; }
+      .trustbar-items {
+        flex-wrap: nowrap; gap: 0;
+        width: max-content; padding: 0 16px;
+      }
+      .trust-item {
+        flex-direction: column; align-items: center; text-align: center;
+        padding: 0 16px; gap: 4px; min-width: 130px;
+      }
+      .trust-item .icon { font-size: 26px; }
+      .trust-item span { font-size: 12px; }
+
+      /* Categories — horizontal scroll */
+      section { padding: 40px 0; }
+      .categories-grid {
+        display: flex; overflow-x: auto; gap: 12px;
+        padding-bottom: 8px; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .categories-grid::-webkit-scrollbar { height: 4px; }
+      .categories-grid::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 2px; }
+      .cat-card {
+        flex: 0 0 130px; scroll-snap-align: start;
+        padding: 18px 12px;
+      }
+      .cat-card .emoji { font-size: 28px; }
+
+      /* Products grid — 1 column */
+      .products-grid { grid-template-columns: 1fr; }
+      .product-img { height: 160px; font-size: 56px; }
+
+      /* Promo */
+      .promo-inner { padding: 28px 20px; border-radius: var(--radius-md); }
+      .promo-content h2 { font-size: 22px; }
+      .promo-content p { font-size: 14px; }
       .promo-icon { display: none; }
-      .topbar-inner { flex-direction: column; text-align: center; }
+      .promo-badges { gap: 8px; }
+      .promo-badge { font-size: 13px; padding: 6px 12px; }
+
+      /* Steps */
+      .steps { grid-template-columns: 1fr; gap: 0; }
+      .step { padding: 20px 0; border-bottom: 1px solid var(--gray-200); }
+      .step:last-child { border-bottom: none; }
+
+      /* Reviews — horizontal scroll */
+      .reviews-grid {
+        display: flex; overflow-x: auto; gap: 14px;
+        padding-bottom: 8px; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .reviews-grid::-webkit-scrollbar { height: 4px; }
+      .review-card {
+        flex: 0 0 80vw; scroll-snap-align: start; max-width: 300px;
+      }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      footer { padding: 36px 0 80px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
+
+      /* Section headers */
+      .section-header { margin-bottom: 24px; }
+      .section-header h2 { font-size: 24px; }
+
+      /* Buttons */
+      .btn-primary, .btn-outline { font-size: 14px; padding: 13px 22px; }
+
+      /* Toast */
+      .cart-toast { bottom: 80px; left: 16px; right: 16px; width: auto; }
+    }
+
+    /* ── Bottom nav bar (mobile only) ── */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: var(--white); border-top: 1px solid #E5E7EB;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+      padding: 8px 0 env(safe-area-inset-bottom, 8px);
+    }
+    .bottom-nav-items { display: flex; justify-content: space-around; }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      font-size: 11px; color: var(--gray-600); font-weight: 500;
+      padding: 4px 12px; border-radius: 8px; background: none; border: none;
+      cursor: pointer; transition: color 0.15s;
+      text-decoration: none;
+    }
+    .bottom-nav-item .nav-icon { font-size: 22px; }
+    .bottom-nav-item.active, .bottom-nav-item:hover { color: var(--green); }
+    .bottom-nav-item .nav-badge {
+      position: absolute; top: 0; right: 6px;
+      background: var(--gold); color: var(--white); font-size: 10px; font-weight: 700;
+      width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .bottom-nav-item { position: relative; }
+    @media (max-width: 640px) {
+      .bottom-nav { display: block; }
+      .cart-btn { display: none; }
     }
   </style>
 </head>
@@ -660,6 +777,33 @@
   </div>
 </footer>
 
+<!-- Bottom nav (mobile) -->
+<nav class="bottom-nav" aria-label="Мобильная навигация">
+  <div class="bottom-nav-items">
+    <a href="#" class="bottom-nav-item active">
+      <span class="nav-icon">🏠</span>
+      <span>Главная</span>
+    </a>
+    <a href="#categories" class="bottom-nav-item">
+      <span class="nav-icon">🌹</span>
+      <span>Каталог</span>
+    </a>
+    <a href="#promo" class="bottom-nav-item">
+      <span class="nav-icon">🎁</span>
+      <span>Акции</span>
+    </a>
+    <a href="#footer" class="bottom-nav-item">
+      <span class="nav-icon">📞</span>
+      <span>Контакты</span>
+    </a>
+    <button class="bottom-nav-item" onclick="document.getElementById('cartBtn') && alert('Корзина пуста')" id="bottomCartBtn">
+      <span class="nav-icon">🛒</span>
+      <span>Корзина</span>
+      <span class="nav-badge" id="bottomCartCount" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
 <!-- Cart toast notification -->
 <div class="cart-toast" id="cartToast" role="status" aria-live="polite">
   <span>✅</span>
@@ -673,6 +817,9 @@
   function addToCart(name, price) {
     cartItems++;
     document.getElementById('cartCount').textContent = cartItems;
+    const badge = document.getElementById('bottomCartCount');
+    badge.textContent = cartItems;
+    badge.style.display = 'flex';
     const toast = document.getElementById('cartToast');
     document.getElementById('cartToastText').textContent = `«${name}» добавлен в корзину`;
     toast.classList.add('show');
